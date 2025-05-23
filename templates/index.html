@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Sign In{% endblock %}
+{% block content %}
+<form method="POST" action="/lookup" id="lookup-form">
+  <label for="student_id">Scan or Enter Your Student ID:</label>
+  <input type="text" id="student_id" name="student_id" placeholder="e.g. 100123456" autofocus required>
+  <button type="submit">Continue</button>
+</form>
+{% endblock %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('student_id');
+    const form = document.getElementById('lookup-form');
+
+    input.addEventListener('input', () => {
+      const id = input.value.trim();
+      if (id.length === 9 && /^\d{9}$/.test(id)) {
+        // Optional small delay to wait for 'Enter' if scanner sends it
+        setTimeout(() => {
+          form.submit();
+        }, 100);
+      }
+    });
+  });
+</script>

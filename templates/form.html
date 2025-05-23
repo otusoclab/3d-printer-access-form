@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}3D Printer Form{% endblock %}
+{% block content %}
+
+<form action="/form?student_id={{ user.student_id }}" method="post">
+  <label>Name:</label>
+  <input type="text" value="{{ user.name }}" readonly>
+
+  <label>Email:</label>
+  <input type="text" value="{{ user.email }}" readonly>
+
+  <label>Student ID:</label>
+  <input type="text" value="{{ user.student_id }}" readonly>
+
+  <label for="reason">Reason for using:</label>
+  <select name="reason" required>
+    <option value="">Select...</option>
+    <option value="Course">Course</option>
+    <option value="Event">Event</option>
+    <option value="Lab Use">Lab Use</option>
+    <option value="Personal">Personal</option>
+  </select>
+
+  <div class="form-row">
+    <div class="form-column">
+      <label for="access_date">Date of Access:</label>
+      <input type="date" name="access_date" id="access_date" readonly required>
+    </div>
+    <div class="form-column">
+      <label for="access_time">Time of Access:</label>
+      <input type="time" name="access_time" id="access_time" readonly required>
+    </div>
+  </div>
+
+  <label>3D Printers Used:</label>
+  <div class="checkbox-grid">
+    <label><input type="checkbox" name="printers" value="Game Lab A1"> Game Lab A1</label>
+    <label><input type="checkbox" name="printers" value="Game Lab A1 mini"> Game Lab A1 mini</label>
+    <label><input type="checkbox" name="printers" value="Game Lab P1S"> Game Lab P1S</label>
+    <label><input type="checkbox" name="printers" value="Game Lab X1 Carbon"> Game Lab X1 Carbon</label>
+  </div>
+
+  <label for="print_description">What are you 3D printing?</label>
+  <input type="text" name="print_description" id="print_description" placeholder="e.g. Phone mount or game prop" required>
+
+  <label>Filament:</label>
+  <div class="radio-group">
+    <label><input type="radio" name="filament" value="own" required> Own Filament</label>
+    <label><input type="radio" name="filament" value="provided" required> Provided Filament</label>
+  </div>
+
+  <button type="submit">Submit Form</button>
+</form>
+
+<script>
+  function setCurrentDateTime() {
+    const now = new Date();
+    const date = now.toISOString().split('T')[0];
+    const time = now.toTimeString().split(':').slice(0, 2).join(':');
+    document.getElementById('access_date').value = date;
+    document.getElementById('access_time').value = time;
+  }
+  document.addEventListener('DOMContentLoaded', setCurrentDateTime);
+</script>
+
+{% endblock %}

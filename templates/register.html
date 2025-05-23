@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<form action="/register" method="post">
+  <h2 style="color: #00549F;">New User Registration</h2>
+  <input type="hidden" name="student_id" value="{{ student_id }}">
+  <label for="name">Full Name:</label>
+  <input type="text" name="name" required>
+  <label for="email">Email Address:</label>
+  <input type="email" name="email" required>
+  <label for="role">Role:</label>
+  <select name="role" required>
+    <option value="">Select...</option>
+    <option value="Student">Student</option>
+    <option value="Professor">Professor</option>
+    <option value="TA/Sessional Inst">TA/Sessional Inst</option>
+    <option value="Lab Monitor">Lab Monitor</option>
+  </select>
+  <button type="submit">Continue to 3D Printer Form</button>
+</form>
+{% endblock %}

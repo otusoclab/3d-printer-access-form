@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <img id="logo" src="{{ url_for('static', filename='OntarioTech_primary.png') }}" alt="Ontario Tech Logo">
+    <h1>GameDev 3D Printer Access Form</h1>
+    <p><strong>Important:</strong> All students must complete this form before using the 3D printers. Submission is mandatory and access will not be granted without all required fields being completed.</p>
+  </header>
+  <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+
+
+  {% block content %}{% endblock %}
+<script>
+  function toggleTheme() {
+    document.body.classList.toggle("dark");
+
+    const newTheme = document.body.classList.contains("dark") ? "dark" : "light";
+    localStorage.setItem("theme", newTheme);
+
+    // Swap logo image
+    const logo = document.getElementById("logo");
+    if (newTheme === "dark") {
+      logo.src = "{{ url_for('static', filename='ontech.PNG') }}"; // dark mode logo
+    } else {
+      logo.src = "{{ url_for('static', filename='OntarioTech_primary.png') }}"; // light mode logo
+    }
+  }
+
+  window.onload = () => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark");
+      document.getElementById("logo").src = "{{ url_for('static', filename='ontech.PNG') }}";
+    } else {
+      document.getElementById("logo").src = "{{ url_for('static', filename='OntarioTech_primary.png') }}";
+    }
+  };
+</script>
+</body>
+</html>
